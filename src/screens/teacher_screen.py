@@ -190,16 +190,6 @@ def teacher_tab_take_attendance():
         if st.button('Use Voice Attendance', type='primary', width='stretch', icon=':material/mic:'):
             voice_attendance_dialog(selected_subject_id)
 
-
-
-
-
-
-
-
-
-
-
 def teacher_tab_manage_subjects():
     teacher_id = st.session_state.teacher_data['teacher_id']
     col1, col2 = st.columns(2)
@@ -219,18 +209,18 @@ def teacher_tab_manage_subjects():
                 ("🫂", "Students", sub['total_students']),
                 ("🕰️", "Classes", sub['total_classes']),
             ]
-        def share_btn():
-            if st.button(f"Share Code: {sub['name']}", key=f"share_{sub['subject_code']}", icon=":material/share:"):
-                share_subject_dialog(sub['name'], sub['subject_code'])
-            st.space()
+            def share_btn(sub=sub):
+                if st.button(f"Share Code: {sub['name']}", key=f"share_{sub['subject_code']}", icon=":material/share:"):
+                    share_subject_dialog(sub['name'], sub['subject_code'])
+                st.space()
 
-        subject_card(
-            name = sub['name'],
-            code = sub['subject_code'],
-            section = sub['section'],
-            stats=stats,
-            footer_callback=share_btn
-        )
+            subject_card(
+                name = sub['name'],
+                code = sub['subject_code'],
+                section = sub['section'],
+                stats=stats,
+                footer_callback=share_btn
+            )
     else:
         st.info("NO SUBJECTS FOUND. CREATE ONE ABOVE")
 
@@ -307,16 +297,27 @@ def teacher_screen_login():
             st.session_state['login_type'] = None
             st.rerun()
 
-    st.header('Login using password', text_alignment='center')
-    st.space()
-    st.space()
+    st.markdown("<h2 style='color:black; text-align:center;'>Login using password</h2>", unsafe_allow_html=True)
 
+    st.markdown("""
+        <style>
+        [data-testid="stWidgetLabel"] p {
+            color: black !important;
+        }
+        input {
+            color: white !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.space()
+    st.space()
 
     teacher_username = st.text_input("Enter username", placeholder='ananyaroy')
-
     teacher_pass = st.text_input("Enter password", type='password', placeholder="Enter password")
 
     st.divider()
+    ...
 
     btnc1, btnc2 = st.columns(2)
 
@@ -362,23 +363,29 @@ def teacher_screen_register():
             st.session_state['login_type'] = None
             st.rerun()
 
+    st.markdown("<h2 style='color:black; text-align:center;'>Register your teacher profile</h2>", unsafe_allow_html=True)
 
-
-    st.header('Register your teacher profile')
+    st.markdown("""
+        <style>
+        [data-testid="stWidgetLabel"] p {
+            color: black !important;
+        }
+        input {
+            color: white !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     st.space()
     st.space()
 
-    
     teacher_username = st.text_input("Enter username", placeholder='ananyaroy')
-
     teacher_name = st.text_input("Enter name", placeholder='Ananya Roy')
-
     teacher_pass = st.text_input("Enter password", type='password', placeholder="Enter password")
-
     teacher_pass_confirm = st.text_input("Confirm your password", type='password', placeholder="Enter password")
 
     st.divider()
+    ...
 
     btnc1, btnc2 = st.columns(2)
 
